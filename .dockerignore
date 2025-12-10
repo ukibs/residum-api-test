@@ -1,0 +1,14 @@
+# Ignore everything
+**
+
+# Include root workspace
+!package.json
+
+# Include workspace packages/shared
+!packages/shared
+
+# Include workspace packages/housing-management
+!packages/housing-management/package.json
+!packages/housing-management/apps
+!packages/housing-management/contexts
+
