@@ -1,0 +1,10 @@
+name: Saludito
+
+on:
+  push:
+
+jobs:
+  hey:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Todo está listo para funcionar"
