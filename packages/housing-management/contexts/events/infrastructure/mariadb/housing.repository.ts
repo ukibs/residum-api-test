@@ -27,6 +27,7 @@ export function housingRepositoryBuilder({
     databaseConnector: ServiceConnector<Connection>;
 }): HousingRepository {
     async function insertEventWithTicketsAndExtras(conn: Connection, event: Event) {
+
         const { event_categories, tickets, extras, ...eventValue } = event.value;
         console.debug("Event value: ", eventValue);
         const { objectValuesArray, objectKeysArray } = getValuesAndKeysAsArray(eventValue);
@@ -88,6 +89,9 @@ export function housingRepositoryBuilder({
             parentEvent: Event,
             childEvents: Event[]
         ): Promise<Maybe<Housing>> {
+
+            return [null, null];
+
             // Realizamos la operación
             const conn = await databaseConnector.getConnection();
 
@@ -157,6 +161,9 @@ export function housingRepositoryBuilder({
             }
         },
         async getAll(parameters: any, executedBy: AuthorizedUserProperties): Promise<Maybe<any>> {
+
+            return [null, null];
+
             const { search, is_reserved, property_type, sede, page, perPage, asc, desc } =
                 parameters;
             console.debug("Parameters: ", parameters);
@@ -271,16 +278,19 @@ export function housingRepositoryBuilder({
             const result =
                 page && perPage
                     ? {
-                          page: page,
-                          perpage: perPage,
-                          total: parseInt(countResult[0].count),
-                          data: mainResult,
-                      }
+                        page: page,
+                        perpage: perPage,
+                        total: parseInt(countResult[0].count),
+                        data: mainResult,
+                    }
                     : mainResult;
 
             return [result, null];
         },
         async getById(id: string): Promise<Maybe<any>> {
+
+            return [null, null];
+
             // TODO: Coger todo lo realitvo al housing
             // Housing
             const [housingResult, hError] = await singularDatabaseOperation(
@@ -363,6 +373,9 @@ export function housingRepositoryBuilder({
             return [result, null];
         },
         async update(id: string, housing: Housing): Promise<Maybe<any>> {
+
+            return [null, null];
+
             // Realizamos la operación
             const conn = await databaseConnector.getConnection();
 
@@ -420,6 +433,9 @@ export function housingRepositoryBuilder({
             }
         },
         async delete(id: string): Promise<Maybe<any>> {
+
+            return [null, null];
+
             const conn = await databaseConnector.getConnection();
 
             try {
@@ -479,6 +495,9 @@ export function housingRepositoryBuilder({
             parameters: any,
             executedBy: AuthorizedUserProperties
         ): Promise<Maybe<any>> {
+
+            return [null, null];
+
             const { search, sede, page, perPage } = parameters;
             console.debug("Parameters: ", parameters);
 
@@ -531,16 +550,19 @@ export function housingRepositoryBuilder({
             const result =
                 page && perPage
                     ? {
-                          page: page,
-                          perpage: perPage,
-                          total: parseInt(countResult[0].count),
-                          data: mainResult,
-                      }
+                        page: page,
+                        perpage: perPage,
+                        total: parseInt(countResult[0].count),
+                        data: mainResult,
+                    }
                     : mainResult;
 
             return [result, null];
         },
         async getOwnerById(id: string): Promise<Maybe<any>> {
+
+            return [null, null];
+
             const mainQuery = `
                 SELECT 
                     *
@@ -577,6 +599,9 @@ export function housingRepositoryBuilder({
             return [owner, null];
         },
         async updateOwner(id: string, owner: Owner): Promise<Maybe<any>> {
+
+            return [null, null];
+
             // Realizamos la operación
             const conn = await databaseConnector.getConnection();
 
@@ -620,6 +645,9 @@ export function housingRepositoryBuilder({
         },
         // Events
         async getDomainEvents(parameters: any): Promise<Maybe<any[]>> {
+
+            return [null, null];
+
             const {
                 domain,
                 search,
@@ -934,11 +962,11 @@ export function housingRepositoryBuilder({
             const result =
                 page && perPage
                     ? {
-                          page: page,
-                          perpage: perPage,
-                          total: parseInt(eventsCountResult[0].count),
-                          data: eventsResult,
-                      }
+                        page: page,
+                        perpage: perPage,
+                        total: parseInt(eventsCountResult[0].count),
+                        data: eventsResult,
+                    }
                     : eventsResult;
 
             return [result, null];
