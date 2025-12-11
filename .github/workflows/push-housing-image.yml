@@ -1,8 +1,8 @@
-name: Push Payment Management Image
+name: Push Housing Management Image
 
 on:
   workflow_run:
-    workflows: ["Build Payment Management Image"]
+    workflows: ["Build Housing Management Image"]
     types:
       - completed
 
@@ -28,10 +28,10 @@ jobs:
 
       - name: Tag Docker image
         run: |
-          docker tag tikitup/payment-management:${{ github.run_number }} ${{ secrets.ECR_REGISTRY }}/tikitup/payment-management:${{ github.run_number }}
-          docker tag tikitup/payment-management:latest ${{ secrets.ECR_REGISTRY }}/tikitup/payment-management:latest
+          docker tag tikitup/housing-management:${{ github.run_number }} ${{ secrets.ECR_REGISTRY }}/tikitup/housing-management:${{ github.run_number }}
+          docker tag tikitup/housing-management:latest ${{ secrets.ECR_REGISTRY }}/tikitup/housing-management:latest
 
       - name: Push Docker image to ECR
         run: |
-          docker push ${{ secrets.ECR_REGISTRY }}/tikitup/payment-management:${{ github.run_number }}
-          docker push ${{ secrets.ECR_REGISTRY }}/tikitup/payment-management:latest
+          docker push ${{ secrets.ECR_REGISTRY }}/tikitup/housing-management:${{ github.run_number }}
+          docker push ${{ secrets.ECR_REGISTRY }}/tikitup/housing-management:latest
