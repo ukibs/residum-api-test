@@ -1,20 +1,17 @@
-name: Build and Push Housing Management Image
+name: Push Payment Management Image
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - "packages/housing-management/**"
-      - ".github/workflows/push-housing-image.yml"
+  workflow_run:
+    workflows: ["Build Payment Management Image"]
+    types:
+      - completed
 
 jobs:
-  build-and-push:
+  push-image:
     runs-on: ubuntu-latest
-
     permissions:
       contents: read
-      id-token: write
+      id-token: write  # necesario para OIDC
 
     steps:
       - name: Checkout code
@@ -24,25 +21,17 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
-          aws-region: eu-west-1
+          aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Login to ECR
         uses: aws-actions/amazon-ecr-login@v2
 
-      - name: Build Docker image
+      - name: Tag Docker image
         run: |
-          docker build \
-            -t ${{ env.IMAGE_NAME }}:${{ github.run_number }} \
-            -t ${{ env.IMAGE_NAME }}:latest \
-            -f packages/housing-management/Dockerfile \
-            .
+          docker tag tikitup/payment-management:${{ github.run_number }} ${{ secrets.ECR_REGISTRY }}/tikitup/payment-management:${{ github.run_number }}
+          docker tag tikitup/payment-management:latest ${{ secrets.ECR_REGISTRY }}/tikitup/payment-management:latest
 
-      - name: Push to ECR
+      - name: Push Docker image to ECR
         run: |
-          docker push ${{ env.IMAGE_NAME }}:${{ github.run_number }}
-          docker push ${{ env.IMAGE_NAME }}:latest
-
-    env:
-      AWS_REGION: eu-west-1
-      ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
-      IMAGE_NAME: ${{ secrets.ECR_REGISTRY }}/residium/housing-management
+          docker push ${{ secrets.ECR_REGISTRY }}/tikitup/payment-management:${{ github.run_number }}
+          docker push ${{ secrets.ECR_REGISTRY }}/tikitup/payment-management:latest
