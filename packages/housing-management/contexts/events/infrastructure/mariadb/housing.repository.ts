@@ -161,7 +161,7 @@ export function housingRepositoryBuilder({
             }
         },
         async getAll(parameters: any, executedBy: AuthorizedUserProperties): Promise<Maybe<any>> {
-            console.debug("Testing get all");
+            console.debug("Testing get all 1");
             return [null, null];
 
             const { search, is_reserved, property_type, sede, page, perPage, asc, desc } =

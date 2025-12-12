@@ -21,7 +21,7 @@ jobs:
       - name: Build Docker image
         run: |
           docker build \
-            -t tikitup/housing-management:${{ github.run_number }} \
-            -t tikitup/housing-management:latest \
+            -t residium/housing-management:${{ github.run_number }} \
+            -t residium/housing-management:latest \
             -f packages/housing-management/Dockerfile \
-            packages/housing-management
+            .

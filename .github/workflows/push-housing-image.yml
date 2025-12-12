@@ -28,10 +28,10 @@ jobs:
 
       - name: Tag Docker image
         run: |
-          docker tag tikitup/housing-management:${{ github.run_number }} ${{ secrets.ECR_REGISTRY }}/tikitup/housing-management:${{ github.run_number }}
-          docker tag tikitup/housing-management:latest ${{ secrets.ECR_REGISTRY }}/tikitup/housing-management:latest
+          docker tag residium/housing-management:${{ github.run_number }} ${{ secrets.ECR_REGISTRY }}/residium/housing-management:${{ github.run_number }}
+          docker tag residium/housing-management:latest ${{ secrets.ECR_REGISTRY }}/residium/housing-management:latest
 
       - name: Push Docker image to ECR
         run: |
-          docker push ${{ secrets.ECR_REGISTRY }}/tikitup/housing-management:${{ github.run_number }}
-          docker push ${{ secrets.ECR_REGISTRY }}/tikitup/housing-management:latest
+          docker push ${{ secrets.ECR_REGISTRY }}/residium/housing-management:${{ github.run_number }}
+          docker push ${{ secrets.ECR_REGISTRY }}/residium/housing-management:latest
