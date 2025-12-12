@@ -1,13 +1,14 @@
-name: Push Housing Management Image
+name: Build and Push Housing Management Image
 
 on:
-  workflow_run:
-    workflows: ["Build Housing Management Image"]
-    types:
-      - completed
+  push:
+    branches:
+      - '**'
+    paths:
+      - "packages/housing-management/**"
 
 jobs:
-  push-image:
+  build-and-push:
     runs-on: ubuntu-latest
     environment: test
     permissions:
@@ -27,7 +28,15 @@ jobs:
       - name: Login to ECR
         uses: aws-actions/amazon-ecr-login@v2
 
-      - name: Tag Docker image
+      - name: Build Docker image
+        run: |
+          docker build \
+            -t residium/housing-management:${{ github.run_number }} \
+            -t residium/housing-management:latest \
+            -f packages/housing-management/Dockerfile \
+            packages/housing-management
+
+      - name: Tag Docker image for ECR
         run: |
           docker tag residium/housing-management:${{ github.run_number }} ${{ secrets.ECR_REGISTRY }}/residium/housing-management:${{ github.run_number }}
           docker tag residium/housing-management:latest ${{ secrets.ECR_REGISTRY }}/residium/housing-management:latest
