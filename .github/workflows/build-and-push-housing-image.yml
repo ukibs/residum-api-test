@@ -43,10 +43,10 @@ jobs:
 
       - name: Tag Docker image for ECR
         run: |
-          docker tag residium/housing-management:${{ github.run_number }} ${{ secrets.ECR_REGISTRY }}/residium/housing-management:${{ github.run_number }}
-          docker tag residium/housing-management:latest ${{ secrets.ECR_REGISTRY }}/residium/housing-management:latest
+          docker tag residium/housing-management:${{ github.run_number }} public.ecr.aws/${{ secrets.ECR_REGISTRY }}/residium/housing-management:${{ github.run_number }}
+          docker tag residium/housing-management:latest public.ecr.aws/${{ secrets.ECR_REGISTRY }}/residium/housing-management:latest
 
       - name: Push Docker image to ECR
         run: |
-          docker push ${{ secrets.ECR_REGISTRY }}/residium/housing-management:${{ github.run_number }}
-          docker push ${{ secrets.ECR_REGISTRY }}/residium/housing-management:latest
+          docker push public.ecr.aws/${{ secrets.ECR_REGISTRY }}/residium/housing-management:${{ github.run_number }}
+          docker push public.ecr.aws/${{ secrets.ECR_REGISTRY }}/residium/housing-management:latest
