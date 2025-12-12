@@ -28,6 +28,11 @@ jobs:
       - name: Login to ECR
         uses: aws-actions/amazon-ecr-login@v2
 
+      - name: Create ECR repository if not exists
+        run: |
+            aws ecr describe-repositories --repository-names residium/housing-management || \
+            aws ecr create-repository --repository-name residium/housing-management
+
       - name: Build Docker image
         run: |
           docker build \
