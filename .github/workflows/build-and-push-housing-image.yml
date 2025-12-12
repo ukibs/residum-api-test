@@ -34,7 +34,7 @@ jobs:
             -t residium/housing-management:${{ github.run_number }} \
             -t residium/housing-management:latest \
             -f packages/housing-management/Dockerfile \
-            packages/housing-management
+            .
 
       - name: Tag Docker image for ECR
         run: |
